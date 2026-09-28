@@ -1,0 +1,2593 @@
+{
+  "Version": "1.0",
+  "Presets": [
+    {
+      "Name": "Defaults",
+      "Description": "Original default registry-backed tweaks, excluding Microsoft Copilot.",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo",
+          "Name": "Enabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+          "Name": "TailoredExperiencesWithDiagnosticDataEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Speech_OneCore\\Settings\\OnlineSpeechPrivacy",
+          "Name": "HasAccepted",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Input\\TIPC",
+          "Name": "Enabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\InputPersonalization",
+          "Name": "RestrictImplicitInkCollection",
+          "Type": "DWord",
+          "Value": 1,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\InputPersonalization",
+          "Name": "RestrictImplicitTextCollection",
+          "Type": "DWord",
+          "Value": 1,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\InputPersonalization\\TrainedDataStore",
+          "Name": "HarvestContacts",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Personalization\\Settings",
+          "Name": "AcceptedPrivacyPolicy",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection",
+          "Name": "AllowTelemetry",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "Start_TrackProgs",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+          "Name": "PublishUserActivities",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Siuf\\Rules",
+          "Name": "NumberOfSIUFInPeriod",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "DeleteValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Siuf\\Rules",
+          "Name": "PeriodInNanoSeconds",
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "PersonalizationReportingEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "DiagnosticData",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling telemetry and diagnostic data collection"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-310093Enabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-338388Enabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SystemPaneSuggestionsEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "Start_IrisRecommendations",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-338389Enabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SoftLandingEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-338393Enabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-353694Enabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-353696Enabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-353698Enabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\SystemSettings\\AccountNotifications",
+          "Name": "EnableAccountNotifications",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\UserProfileEngagement",
+          "Name": "ScoobeSystemSettingEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "ShowSyncProviderNotifications",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SilentInstalledAppsEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Notifications\\Settings\\Windows.SystemToast.Suggested",
+          "Name": "Enabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Mobility",
+          "Name": "OptedIn",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "Start_AccountNotifications",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Notifications\\Settings\\Windows.SystemToast.BackupReminder",
+          "Name": "Enabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips, tricks, suggestions and ads throughout Windows"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-338387Enabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips & tricks on the lock screen"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "RotatingLockScreenOverlayEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling tips & tricks on the lock screen"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "NewTabPageContentEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "NewTabPageHideDefaultTopSites",
+          "Type": "DWord",
+          "Value": 1,
+          "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "EdgeShoppingAssistantEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "TabServicesEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "AlternateErrorPagesEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "UserFeedbackAllowed",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "ShowRecommendationsEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "WalletDonationEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "HideFirstRunExperience",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "DefaultBrowserSettingEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "DefaultBrowserSettingsCampaignEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "SpotlightExperiencesAndRecommendationsEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "ShowAcrobatSubscriptionButton",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "Name": "DisableAIDataAnalysis",
+          "Type": "DWord",
+          "Value": 1,
+          "Description": "Disabling Windows Recall"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "Name": "DisableAIDataAnalysis",
+          "Type": "DWord",
+          "Value": 1,
+          "Description": "Disabling Windows Recall"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "Name": "AllowRecallEnablement",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling Windows Recall"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "Name": "TurnOffSavingSnapshots",
+          "Type": "DWord",
+          "Value": 1,
+          "Description": "Disabling Windows Recall"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "Name": "DisableClickToDo",
+          "Type": "DWord",
+          "Value": 1,
+          "Description": "Disabling Click to Do"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "Name": "DisableClickToDo",
+          "Type": "DWord",
+          "Value": 1,
+          "Description": "Disabling Click to Do"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\WSAIFabricSvc",
+          "Name": "Start",
+          "Type": "DWord",
+          "Value": 3,
+          "Description": "Preventing AI service from starting automatically"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\Explorer",
+          "Name": "DisableSearchBoxSuggestions",
+          "Type": "DWord",
+          "Value": 1,
+          "Description": "Disabling Bing web search & Copilot integration in Windows search"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+          "Name": "AllowCortana",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling Bing web search & Copilot integration in Windows search"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+          "Name": "CortanaConsent",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling Bing web search & Copilot integration in Windows search"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\CDP",
+          "Name": "DragTrayEnabled",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling Drag Tray"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "TaskbarMn",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Hiding the chat icon from the taskbar"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "Name": "HideSCAMeetNow",
+          "Type": "DWord",
+          "Value": 1,
+          "Description": "Hiding the chat icon from the taskbar"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Power\\PowerSettings\\f15576e8-98b7-4186-b944-eafa664402d9",
+          "Name": "ACSettingIndex",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling network connectivity during Modern Standby"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Power\\PowerSettings\\f15576e8-98b7-4186-b944-eafa664402d9",
+          "Name": "DCSettingIndex",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Disabling network connectivity during Modern Standby"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "HideFileExt",
+          "Type": "DWord",
+          "Value": 0,
+          "Description": "Enabling file extensions for known file types"
+        },
+        {
+          "Action": "DeleteKey",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}",
+          "Description": "Hiding the '3D objects' folder from the File Explorer navigation pane"
+        },
+        {
+          "Action": "DeleteKey",
+          "Path": "HKLM:\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}",
+          "Description": "Hiding the '3D objects' folder from the File Explorer navigation pane"
+        }
+      ]
+    },
+    {
+      "Name": "DisableTelemetry",
+      "Description": "Disabling telemetry and diagnostic data collection",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo",
+          "Name": "Enabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+          "Name": "TailoredExperiencesWithDiagnosticDataEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Speech_OneCore\\Settings\\OnlineSpeechPrivacy",
+          "Name": "HasAccepted",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Input\\TIPC",
+          "Name": "Enabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\InputPersonalization",
+          "Name": "RestrictImplicitInkCollection",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\InputPersonalization",
+          "Name": "RestrictImplicitTextCollection",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\InputPersonalization\\TrainedDataStore",
+          "Name": "HarvestContacts",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Personalization\\Settings",
+          "Name": "AcceptedPrivacyPolicy",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection",
+          "Name": "AllowTelemetry",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "Start_TrackProgs",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+          "Name": "PublishUserActivities",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Siuf\\Rules",
+          "Name": "NumberOfSIUFInPeriod",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "DeleteValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Siuf\\Rules",
+          "Name": "PeriodInNanoSeconds"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "PersonalizationReportingEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "DiagnosticData",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableSuggestions",
+      "Description": "Disabling tips, tricks, suggestions and ads throughout Windows",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-310093Enabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-338388Enabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SystemPaneSuggestionsEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "Start_IrisRecommendations",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-338389Enabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SoftLandingEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-338393Enabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-353694Enabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-353696Enabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-353698Enabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\SystemSettings\\AccountNotifications",
+          "Name": "EnableAccountNotifications",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\UserProfileEngagement",
+          "Name": "ScoobeSystemSettingEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "ShowSyncProviderNotifications",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SilentInstalledAppsEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Notifications\\Settings\\Windows.SystemToast.Suggested",
+          "Name": "Enabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Mobility",
+          "Name": "OptedIn",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "Start_AccountNotifications",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Notifications\\Settings\\Windows.SystemToast.BackupReminder",
+          "Name": "Enabled",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableNotifications",
+      "Description": "Disabling Windows notifications and reminders",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\PushNotifications",
+          "Name": "ToastEnabled",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableLocationServices",
+      "Description": "Disabling Windows location services and app location access",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LocationAndSensors",
+          "Name": "DisableLocation",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "DisableFindMyDevice",
+      "Description": "Disabling Find My Device location tracking",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\FindMyDevice",
+          "Name": "AllowFindMyDevice",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableLockscreenTips",
+      "Description": "Disabling tips & tricks on the lock screen",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "SubscribedContent-338387Enabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "Name": "RotatingLockScreenOverlayEnabled",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "EnableDesktopSpotlight",
+      "Description": "Restoring the Windows spotlight desktop background and shortcut",
+      "Operations": [
+        {
+          "Action": "DeleteValue",
+          "Path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\CloudContent",
+          "Name": "DisableSpotlightCollectionOnDesktop"
+        },
+        {
+          "Action": "DeleteValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\HideDesktopIcons\\NewStartPanel",
+          "Name": "{2cc5ca98-6485-489a-920e-b3e88a6ccce3}"
+        }
+      ]
+    },
+    {
+      "Name": "DisableDesktopSpotlight",
+      "Description": "Disabling the Windows spotlight desktop background",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\CloudContent",
+          "Name": "DisableSpotlightCollectionOnDesktop",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "DeleteValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\HideDesktopIcons\\NewStartPanel",
+          "Name": "{2cc5ca98-6485-489a-920e-b3e88a6ccce3}"
+        }
+      ]
+    },
+    {
+      "Name": "HideDesktopSpotlightIcon",
+      "Description": "Hiding the Windows spotlight 'Learn about this picture' desktop shortcut",
+      "Operations": [
+        {
+          "Action": "DeleteValue",
+          "Path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\CloudContent",
+          "Name": "DisableSpotlightCollectionOnDesktop"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\HideDesktopIcons\\NewStartPanel",
+          "Name": "{2cc5ca98-6485-489a-920e-b3e88a6ccce3}",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "DisableEdgeAds",
+      "Description": "Disabling ads, suggestions and the MSN news feed in Microsoft Edge",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "NewTabPageContentEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "NewTabPageHideDefaultTopSites",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "EdgeShoppingAssistantEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "TabServicesEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "AlternateErrorPagesEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "UserFeedbackAllowed",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "ShowRecommendationsEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "WalletDonationEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "HideFirstRunExperience",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "DefaultBrowserSettingEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "DefaultBrowserSettingsCampaignEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "SpotlightExperiencesAndRecommendationsEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "ShowAcrobatSubscriptionButton",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableCopilot",
+      "Description": "Disabling Microsoft Copilot",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "ShowCopilotButton",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\WindowsCopilot",
+          "Name": "TurnOffWindowsCopilot",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot",
+          "Name": "TurnOffWindowsCopilot",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "DisableRecall",
+      "Description": "Disabling Windows Recall",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "Name": "DisableAIDataAnalysis",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "Name": "DisableAIDataAnalysis",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "Name": "AllowRecallEnablement",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "Name": "TurnOffSavingSnapshots",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "DisableClickToDo",
+      "Description": "Disabling Click to Do",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "Name": "DisableClickToDo",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "Name": "DisableClickToDo",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "DisableAISvcAutoStart",
+      "Description": "Preventing AI service from starting automatically",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\WSAIFabricSvc",
+          "Name": "Start",
+          "Type": "DWord",
+          "Value": 3
+        }
+      ]
+    },
+    {
+      "Name": "DisableDVR",
+      "Description": "Disabling Xbox game/screen recording",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\System\\GameConfigStore",
+          "Name": "GameDVR_Enabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
+          "Name": "AppCaptureEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR",
+          "Name": "AllowGameDVR",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableGameBarIntegration",
+      "Description": "Disabling Game Bar integration",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\GameBar",
+          "Name": "UseNexusForGameBarEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCR:\\ms-gamebar",
+          "Name": "",
+          "Type": "String",
+          "Value": "URL:ms-gamebar"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCR:\\ms-gamebar",
+          "Name": "URL Protocol",
+          "Type": "String",
+          "Value": ""
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCR:\\ms-gamebar",
+          "Name": "NoOpenWith",
+          "Type": "String",
+          "Value": ""
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCR:\\ms-gamebar\\shell\\open\\command",
+          "Name": "",
+          "Type": "String",
+          "Value": "%SystemRoot%/System32/systray.exe"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCR:\\ms-gamebarservices",
+          "Name": "",
+          "Type": "String",
+          "Value": "URL:ms-gamebarservices"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCR:\\ms-gamebarservices",
+          "Name": "URL Protocol",
+          "Type": "String",
+          "Value": ""
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCR:\\ms-gamebarservices",
+          "Name": "NoOpenWith",
+          "Type": "String",
+          "Value": ""
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCR:\\ms-gamebarservices\\shell\\open\\command",
+          "Name": "",
+          "Type": "String",
+          "Value": "%SystemRoot%/System32/systray.exe"
+        }
+      ]
+    },
+    {
+      "Name": "DisableStartRecommended",
+      "Description": "Disabling the start menu recommended section",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+          "Name": "HideRecommendedSection",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "DisableStartAllApps",
+      "Description": "Disabling the 'All Apps' section in the start menu",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "Name": "NoStartMenuMorePrograms",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "DisableStartPhoneLink",
+      "Description": "Disabling the Phone Link mobile devices integration in the start menu",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Start\\Companions\\Microsoft.YourPhone_8wekyb3d8bbwe",
+          "Name": "IsEnabled",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableBing",
+      "Description": "Disabling Bing web search & Copilot integration in Windows search",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\Explorer",
+          "Name": "DisableSearchBoxSuggestions",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+          "Name": "AllowCortana",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+          "Name": "CortanaConsent",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableSettings365Ads",
+      "Description": "Disabling Microsoft 365 Copilot ads in Settings Home",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+          "Name": "DisableConsumerAccountStateContent",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "DisableSettingsHome",
+      "Description": "Disabling the Settings Home page",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "Name": "SettingsPageVisibility",
+          "Type": "String",
+          "Value": "hide:home"
+        }
+      ]
+    },
+    {
+      "Name": "DisableEdgeAI",
+      "Description": "Disabling AI features in Microsoft Edge",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "CopilotCDPPageContext",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "CopilotPageContext",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "HubsSidebarEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "EdgeEntraCopilotPageContext",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "EdgeHistoryAISearchEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "ComposeInlineEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "GenAILocalFoundationalModelSettings",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "Name": "NewTabPageBingChatEnabled",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisablePaintAI",
+      "Description": "Disabling AI features in Paint",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Paint",
+          "Name": "DisableCocreator",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Paint",
+          "Name": "DisableGenerativeFill",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Paint",
+          "Name": "DisableImageCreator",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Paint",
+          "Name": "DisableGenerativeErase",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Paint",
+          "Name": "DisableRemoveBackground",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "DisableNotepadAI",
+      "Description": "Disabling AI features in Notepad",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\WindowsNotepad",
+          "Name": "DisableAIFeatures",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "EnableDarkMode",
+      "Description": "Enabling dark mode for system and apps",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+          "Name": "AppsUseLightTheme",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+          "Name": "SystemUsesLightTheme",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableDragTray",
+      "Description": "Disabling Drag Tray",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\CDP",
+          "Name": "DragTrayEnabled",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "RevertContextMenu",
+      "Description": "Restoring the classic Windows 10 style context menu",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\\InprocServer32",
+          "Name": "",
+          "Type": "String",
+          "Value": ""
+        }
+      ]
+    },
+    {
+      "Name": "DisableMouseAcceleration",
+      "Description": "Turning off Enhanced Pointer Precision",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Control Panel\\Mouse",
+          "Name": "MouseSpeed",
+          "Type": "String",
+          "Value": "0"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Control Panel\\Mouse",
+          "Name": "MouseThreshold1",
+          "Type": "String",
+          "Value": "0"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Control Panel\\Mouse",
+          "Name": "MouseThreshold2",
+          "Type": "String",
+          "Value": "0"
+        }
+      ]
+    },
+    {
+      "Name": "DisableStickyKeys",
+      "Description": "Disabling the Sticky Keys keyboard shortcut",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Control Panel\\Accessibility\\StickyKeys",
+          "Name": "Flags",
+          "Type": "String",
+          "Value": "506"
+        }
+      ]
+    },
+    {
+      "Name": "DisableWindowSnapping",
+      "Description": "Disabling window snapping",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Control Panel\\Desktop",
+          "Name": "WindowArrangementActive",
+          "Type": "String",
+          "Value": "0"
+        }
+      ]
+    },
+    {
+      "Name": "DisableSnapAssist",
+      "Description": "Disabling the Snap Assist suggestions",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "SnapAssist",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableSnapLayouts",
+      "Description": "Hiding snap layouts when dragging windows to top of the screen and on maximize button",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "EnableSnapBar",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "EnableSnapAssistFlyout",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "HideTabsInAltTab",
+      "Description": "Disable showing tabs from apps when snapping or pressing Alt+Tab",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "MultiTaskingAltTabFilter",
+          "Type": "DWord",
+          "Value": 3
+        }
+      ]
+    },
+    {
+      "Name": "Show3TabsInAltTab",
+      "Description": "Enable showing 3 tabs from apps when snapping or pressing Alt+Tab",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "MultiTaskingAltTabFilter",
+          "Type": "DWord",
+          "Value": 2
+        }
+      ]
+    },
+    {
+      "Name": "Show5TabsInAltTab",
+      "Description": "Enable showing 5 tabs from apps when snapping or pressing Alt+Tab",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "MultiTaskingAltTabFilter",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "Show20TabsInAltTab",
+      "Description": "Enable showing 20 tabs from apps when snapping or pressing Alt+Tab",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "MultiTaskingAltTabFilter",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "TaskbarAlignLeft",
+      "Description": "Aligning taskbar buttons to the left",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "TaskbarAl",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "HideSearchTb",
+      "Description": "Hiding the search icon from the taskbar",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "Name": "SearchboxTaskbarMode",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "ShowSearchIconTb",
+      "Description": "Changing taskbar search to icon only",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "Name": "SearchboxTaskbarMode",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "ShowSearchLabelTb",
+      "Description": "Changing taskbar search to icon with label",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "Name": "SearchboxTaskbarMode",
+          "Type": "DWord",
+          "Value": 3
+        }
+      ]
+    },
+    {
+      "Name": "ShowSearchBoxTb",
+      "Description": "Changing taskbar search to search box",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "Name": "SearchboxTaskbarMode",
+          "Type": "DWord",
+          "Value": 2
+        }
+      ]
+    },
+    {
+      "Name": "HideTaskview",
+      "Description": "Hiding the taskview button from the taskbar",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "ShowTaskViewButton",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "HideChat",
+      "Description": "Hiding the chat icon from the taskbar",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "TaskbarMn",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "Name": "HideSCAMeetNow",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "DisableStorageSense",
+      "Description": "Disabling Storage Sense automatic disk cleanup",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\StorageSense\\Parameters\\StoragePolicy",
+          "Name": "01",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableFastStartup",
+      "Description": "Disabling Fast Start-up",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power",
+          "Name": "HiberbootEnabled",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableBitlockerAutoEncryption",
+      "Description": "Disabling BitLocker automatic device encryption",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\BitLocker",
+          "Name": "PreventDeviceEncryption",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "DisableModernStandbyNetworking",
+      "Description": "Disabling network connectivity during Modern Standby",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Power\\PowerSettings\\f15576e8-98b7-4186-b944-eafa664402d9",
+          "Name": "ACSettingIndex",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Power\\PowerSettings\\f15576e8-98b7-4186-b944-eafa664402d9",
+          "Name": "DCSettingIndex",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "EnableEndTask",
+      "Description": "Enabling the 'End Task' option in the taskbar right click menu",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\TaskbarDeveloperSettings",
+          "Name": "TaskbarEndTask",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "EnableLastActiveClick",
+      "Description": "Enabling the 'Last Active Click' behavior in the taskbar app area",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "LastActiveClick",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "CombineTaskbarAlways",
+      "Description": "Setting the taskbar on the main display to always combine buttons and hide labels",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "TaskbarGlomLevel",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "CombineMMTaskbarAlways",
+      "Description": "Setting the taskbar on secondary displays to always combine buttons and hide labels",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "MMTaskbarGlomLevel",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "CombineTaskbarWhenFull",
+      "Description": "Setting the taskbar on the main display to only combine buttons and hide labels when the taskbar is full",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "TaskbarGlomLevel",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "CombineMMTaskbarWhenFull",
+      "Description": "Setting the taskbar on secondary displays to only combine buttons and hide labels when the taskbar is full",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "MMTaskbarGlomLevel",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "CombineTaskbarNever",
+      "Description": "Setting the taskbar on the main display to never combine buttons or hide labels",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "TaskbarGlomLevel",
+          "Type": "DWord",
+          "Value": 2
+        }
+      ]
+    },
+    {
+      "Name": "CombineMMTaskbarNever",
+      "Description": "Setting the taskbar on secondary displays to never combine buttons or hide labels",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "MMTaskbarGlomLevel",
+          "Type": "DWord",
+          "Value": 2
+        }
+      ]
+    },
+    {
+      "Name": "MMTaskbarModeAll",
+      "Description": "Setting the taskbar to show app icons on all taskbars",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "MMTaskbarMode",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "MMTaskbarModeMainActive",
+      "Description": "Setting the taskbar to show app icons on main taskbar and on taskbar where the windows is open",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "MMTaskbarMode",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "MMTaskbarModeActive",
+      "Description": "Setting the taskbar to only show app icons on the taskbar where the window is open",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "MMTaskbarMode",
+          "Type": "DWord",
+          "Value": 2
+        }
+      ]
+    },
+    {
+      "Name": "ExplorerToHome",
+      "Description": "Changing the default location that File Explorer opens to, to 'Home'",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "LaunchTo",
+          "Type": "DWord",
+          "Value": 2
+        }
+      ]
+    },
+    {
+      "Name": "ExplorerToThisPC",
+      "Description": "Changing the default location that File Explorer opens to, to 'This PC'",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "LaunchTo",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "ExplorerToDownloads",
+      "Description": "Changing the default location that File Explorer opens to, to 'Downloads'",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "LaunchTo",
+          "Type": "DWord",
+          "Value": 3
+        }
+      ]
+    },
+    {
+      "Name": "ExplorerToOneDrive",
+      "Description": "Changing the default location that File Explorer opens to, to 'OneDrive'",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "LaunchTo",
+          "Type": "DWord",
+          "Value": 4
+        }
+      ]
+    },
+    {
+      "Name": "ShowKnownFileExt",
+      "Description": "Enabling file extensions for known file types",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "HideFileExt",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "ShowHiddenFolders",
+      "Description": "Unhiding hidden files, folders and drives",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "Name": "Hidden",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "HideDupliDrive",
+      "Description": "Hiding duplicate removable drive entries from the File Explorer navigation pane",
+      "Operations": [
+        {
+          "Action": "DeleteKey",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Desktop\\NameSpace\\DelegateFolders\\{F5FB2C77-0E2F-4A16-A381-3E560C68BC83}"
+        }
+      ]
+    },
+    {
+      "Name": "HideHome",
+      "Description": "Hiding the 'Home' section from the File Explorer navigation pane",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Classes\\CLSID\\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}",
+          "Name": "",
+          "Type": "String",
+          "Value": "CLSID_MSGraphHomeFolder"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Classes\\CLSID\\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}",
+          "Name": "System.IsPinnedToNameSpaceTree",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowHome",
+          "Name": "CheckedValue",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowHome",
+          "Name": "DefaultValue",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowHome",
+          "Name": "HKeyRoot",
+          "Type": "DWord",
+          "Value": 2147483649
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowHome",
+          "Name": "Id",
+          "Type": "DWord",
+          "Value": 13
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowHome",
+          "Name": "RegPath",
+          "Type": "String",
+          "Value": "Software\\Classes\\CLSID\\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowHome",
+          "Name": "Text",
+          "Type": "String",
+          "Value": "Show Home"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowHome",
+          "Name": "Type",
+          "Type": "String",
+          "Value": "checkbox"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowHome",
+          "Name": "UncheckedValue",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowHome",
+          "Name": "ValueName",
+          "Type": "String",
+          "Value": "System.IsPinnedToNameSpaceTree"
+        }
+      ]
+    },
+    {
+      "Name": "HideGallery",
+      "Description": "Hiding the 'Gallery' section from the File Explorer navigation pane",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Classes\\CLSID\\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}",
+          "Name": "System.IsPinnedToNameSpaceTree",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowGallery",
+          "Name": "CheckedValue",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowGallery",
+          "Name": "DefaultValue",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowGallery",
+          "Name": "HKeyRoot",
+          "Type": "DWord",
+          "Value": 2147483649
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowGallery",
+          "Name": "Id",
+          "Type": "DWord",
+          "Value": 13
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowGallery",
+          "Name": "RegPath",
+          "Type": "String",
+          "Value": "Software\\Classes\\CLSID\\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowGallery",
+          "Name": "Text",
+          "Type": "String",
+          "Value": "Show Gallery"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowGallery",
+          "Name": "Type",
+          "Type": "String",
+          "Value": "checkbox"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowGallery",
+          "Name": "UncheckedValue",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowGallery",
+          "Name": "ValueName",
+          "Type": "String",
+          "Value": "System.IsPinnedToNameSpaceTree"
+        }
+      ]
+    },
+    {
+      "Name": "DisableTransparency",
+      "Description": "Disabling transparency effects",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+          "Name": "EnableTransparency",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableAnimations",
+      "Description": "Disabling animations and visual effects",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Control Panel\\Desktop",
+          "Name": "UserPreferencesMask",
+          "Type": "Binary",
+          "Value": [
+            144,
+            18,
+            7,
+            128,
+            16,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "DisableUpdateASAP",
+      "Description": "Preventing Windows from getting updates as soon as they are available",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\WindowsUpdate\\UX\\Settings",
+          "Name": "IsContinuousInnovationOptedIn",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "PreventUpdateAutoReboot",
+      "Description": "Preventing automatic restarts after updates while signed in",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+          "Name": "NoAutoRebootWithLoggedOnUsers",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "DisableDeliveryOptimization",
+      "Description": "Disabling sharing of downloaded updates with other PCs",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKU:\\S-1-5-20\\Software\\Microsoft\\Windows\\CurrentVersion\\DeliveryOptimization\\Settings",
+          "Name": "DownloadMode",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "DisableDeviceAutoAppDownload",
+      "Description": "Preventing automatic installation of device companion apps",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Device Metadata",
+          "Name": "PreventDeviceMetadataFromNetwork",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "HideOnedrive",
+      "Description": "Hiding the 'OneDrive' section from the File Explorer navigation pane",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Classes\\CLSID\\{018D5C66-4533-4307-9B53-224DE2ED1FE6}",
+          "Name": "System.IsPinnedToNameSpaceTree",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowOneDrive",
+          "Name": "CheckedValue",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowOneDrive",
+          "Name": "DefaultValue",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowOneDrive",
+          "Name": "HKeyRoot",
+          "Type": "DWord",
+          "Value": 2147483649
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowOneDrive",
+          "Name": "Id",
+          "Type": "DWord",
+          "Value": 13
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowOneDrive",
+          "Name": "RegPath",
+          "Type": "String",
+          "Value": "Software\\Classes\\CLSID\\{018D5C66-4533-4307-9B53-224DE2ED1FE6}"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowOneDrive",
+          "Name": "Text",
+          "Type": "String",
+          "Value": "Show OneDrive"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowOneDrive",
+          "Name": "Type",
+          "Type": "String",
+          "Value": "checkbox"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowOneDrive",
+          "Name": "UncheckedValue",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\NavPane\\ShowOneDrive",
+          "Name": "ValueName",
+          "Type": "String",
+          "Value": "System.IsPinnedToNameSpaceTree"
+        }
+      ]
+    },
+    {
+      "Name": "Hide3dObjects",
+      "Description": "Hiding the '3D objects' folder from the File Explorer navigation pane",
+      "Operations": [
+        {
+          "Action": "DeleteKey",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}"
+        },
+        {
+          "Action": "DeleteKey",
+          "Path": "HKLM:\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}"
+        }
+      ]
+    },
+    {
+      "Name": "HideMusic",
+      "Description": "Hiding the 'Music' folder from the File Explorer navigation pane",
+      "Operations": [
+        {
+          "Action": "DeleteKey",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}"
+        },
+        {
+          "Action": "DeleteKey",
+          "Path": "HKLM:\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}"
+        }
+      ]
+    },
+    {
+      "Name": "AddFoldersToThisPC",
+      "Description": "Adding all common folders (Desktop, Downloads, etc.) back to 'This PC' in File Explorer",
+      "Operations": [
+        {
+          "Action": "DeleteValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}",
+          "Name": "HideIfEnabled"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}",
+          "Name": "HiddenByDefault",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "DeleteValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{d3162b92-9365-467a-956b-92703aca08af}",
+          "Name": "HideIfEnabled"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{d3162b92-9365-467a-956b-92703aca08af}",
+          "Name": "HiddenByDefault",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "DeleteValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{088e3905-0323-4b02-9826-5d99428e115f}",
+          "Name": "HideIfEnabled"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{088e3905-0323-4b02-9826-5d99428e115f}",
+          "Name": "HiddenByDefault",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "DeleteValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}",
+          "Name": "HideIfEnabled"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}",
+          "Name": "HiddenByDefault",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}",
+          "Name": "HiddenByDefault",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "DeleteValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}",
+          "Name": "HideIfEnabled"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}",
+          "Name": "HiddenByDefault",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "DeleteValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}",
+          "Name": "HideIfEnabled"
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}",
+          "Name": "HiddenByDefault",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "HideIncludeInLibrary",
+      "Description": "Hiding 'Include in library' in the context menu",
+      "Operations": [
+        {
+          "Action": "DeleteKey",
+          "Path": "HKCR:\\Folder\\ShellEx\\ContextMenuHandlers\\Library Location"
+        },
+        {
+          "Action": "DeleteKey",
+          "Path": "HKLM:\\SOFTWARE\\Classes\\Folder\\ShellEx\\ContextMenuHandlers\\Library Location"
+        }
+      ]
+    },
+    {
+      "Name": "HideGiveAccessTo",
+      "Description": "Hiding 'Give access to' in the context menu",
+      "Operations": [
+        {
+          "Action": "DeleteKey",
+          "Path": "HKCR:\\*\\shellex\\ContextMenuHandlers\\Sharing"
+        },
+        {
+          "Action": "DeleteKey",
+          "Path": "HKCR:\\Directory\\Background\\shellex\\ContextMenuHandlers\\Sharing"
+        },
+        {
+          "Action": "DeleteKey",
+          "Path": "HKCR:\\Directory\\shellex\\ContextMenuHandlers\\Sharing"
+        },
+        {
+          "Action": "DeleteKey",
+          "Path": "HKCR:\\Drive\\shellex\\ContextMenuHandlers\\Sharing"
+        },
+        {
+          "Action": "DeleteKey",
+          "Path": "HKCR:\\LibraryFolder\\background\\shellex\\ContextMenuHandlers\\Sharing"
+        },
+        {
+          "Action": "DeleteKey",
+          "Path": "HKCR:\\UserLibraryFolder\\shellex\\ContextMenuHandlers\\Sharing"
+        }
+      ]
+    },
+    {
+      "Name": "HideShare",
+      "Description": "Hiding 'Share' in the context menu",
+      "Operations": [
+        {
+          "Action": "DeleteKey",
+          "Path": "HKCR:\\*\\shellex\\ContextMenuHandlers\\ModernSharing"
+        }
+      ]
+    },
+    {
+      "Name": "DisableBraveBloat",
+      "Description": "Disabling Brave AI, Crypto, News, Rewards, Talk and VPN in Brave browser",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\Software\\Policies\\BraveSoftware\\Brave",
+          "Name": "BraveVPNDisabled",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\Software\\Policies\\BraveSoftware\\Brave",
+          "Name": "BraveWalletDisabled",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\Software\\Policies\\BraveSoftware\\Brave",
+          "Name": "BraveAIChatEnabled",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\Software\\Policies\\BraveSoftware\\Brave",
+          "Name": "BraveRewardsDisabled",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\Software\\Policies\\BraveSoftware\\Brave",
+          "Name": "BraveTalkDisabled",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "SetValue",
+          "Path": "HKLM:\\Software\\Policies\\BraveSoftware\\Brave",
+          "Name": "BraveNewsDisabled",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "ShowDriveLettersFirst",
+      "Description": "Showing drive letters before drive label",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+          "Name": "ShowDriveLettersFirst",
+          "Type": "DWord",
+          "Value": 4
+        }
+      ]
+    },
+    {
+      "Name": "ShowDriveLettersLast",
+      "Description": "Showing drive letters after drive label",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+          "Name": "ShowDriveLettersFirst",
+          "Type": "DWord",
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Name": "ShowNetworkDriveLettersFirst",
+      "Description": "Showing network drive letters before drive label",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+          "Name": "ShowDriveLettersFirst",
+          "Type": "DWord",
+          "Value": 1
+        }
+      ]
+    },
+    {
+      "Name": "HideDriveLetters",
+      "Description": "Hiding all drive letters",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+          "Name": "ShowDriveLettersFirst",
+          "Type": "DWord",
+          "Value": 2
+        }
+      ]
+    },
+    {
+      "Name": "StartAllAppsCategory",
+      "Description": "Setting All Apps view to Category",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Start",
+          "Name": "AllAppsViewMode",
+          "Type": "DWord",
+          "Value": 0
+        },
+        {
+          "Action": "DeleteValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "Name": "NoStartMenuMorePrograms"
+        }
+      ]
+    },
+    {
+      "Name": "StartAllAppsGrid",
+      "Description": "Setting All Apps view to Grid",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Start",
+          "Name": "AllAppsViewMode",
+          "Type": "DWord",
+          "Value": 1
+        },
+        {
+          "Action": "DeleteValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "Name": "NoStartMenuMorePrograms"
+        }
+      ]
+    },
+    {
+      "Name": "StartAllAppsList",
+      "Description": "Setting All Apps view to List",
+      "Operations": [
+        {
+          "Action": "SetValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Start",
+          "Name": "AllAppsViewMode",
+          "Type": "DWord",
+          "Value": 2
+        },
+        {
+          "Action": "DeleteValue",
+          "Path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "Name": "NoStartMenuMorePrograms"
+        }
+      ]
+    }
+  ]
+}

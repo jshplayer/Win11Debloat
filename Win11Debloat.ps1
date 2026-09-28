@@ -1,636 +1,460 @@
+# Win11Debloat - Apply explicitly configured Windows registry presets.
 [CmdletBinding(SupportsShouldProcess)]
-param (
-    [switch]$CLI,
-    [switch]$Silent,
-    [switch]$Sysprep,
-    [string]$LogPath,
-    [string]$Language,
-    [string]$User,
-    [Alias('NoRestartExplorer')]
-    [switch]$SkipExplorerRestart,
-    [switch]$CreateRestorePoint,
-    [switch]$SkipRegistryBackup,
-    [switch]$RunDefaults,
-    [switch]$RunDefaultsLite,
-    [switch]$RunSavedSettings,
-    [string]$Config,
-    [string]$Apps,
-    [string]$AppRemovalTarget,
-    [switch]$RemoveApps,
-    [switch]$RemoveGamingApps,
-    [switch]$RemoveHPApps,
-    [switch]$ForceRemoveEdge,
-    [switch]$DisableDVR,
-    [switch]$DisableGameBarIntegration,
-    [switch]$EnableWindowsSandbox,
-    [switch]$EnableWindowsSubsystemForLinux,
-    [switch]$DisableTelemetry,
-    [switch]$DisableSearchHistory,
-    [switch]$DisableFastStartup,
-    [switch]$DisableBitlockerAutoEncryption,
-    [switch]$DisableModernStandbyNetworking,
-    [switch]$DisableStorageSense,
-    [switch]$DisableUpdateASAP,
-    [switch]$PreventUpdateAutoReboot,
-    [switch]$DisableDeliveryOptimization,
-    [switch]$DisableDeviceAutoAppDownload,
-    [switch]$DisableBing,
-    [switch]$DisableNotifications,
-    [switch]$DisableStoreSearchSuggestions,
-    [switch]$DisableSearchHighlights,
-    [switch]$DisableDesktopSpotlight,
-    [switch]$HideDesktopSpotlightIcon,
-    [switch]$EnableDesktopSpotlight,
-    [switch]$DisableLockscreenTips,
-    [switch]$DisableSuggestions,
-    [switch]$DisableLocationServices,
-    [switch]$DisableFindMyDevice,
-    [switch]$DisableEdgeAds,
-    [switch]$DisableBraveBloat,
-    [switch]$DisableSettings365Ads,
-    [switch]$DisableSettingsHome,
-    [switch]$ShowHiddenFolders,
-    [switch]$ShowKnownFileExt,
-    [switch]$HideDupliDrive,
-    [switch]$EnableDarkMode,
-    [switch]$DisableTransparency,
-    [switch]$DisableAnimations,
-    [switch]$TaskbarAlignLeft,
-    [switch]$CombineTaskbarAlways, [switch]$CombineTaskbarWhenFull, [switch]$CombineTaskbarNever,
-    [switch]$CombineMMTaskbarAlways, [switch]$CombineMMTaskbarWhenFull, [switch]$CombineMMTaskbarNever,
-    [switch]$MMTaskbarModeAll, [switch]$MMTaskbarModeMainActive, [switch]$MMTaskbarModeActive,
-    [switch]$HideSearchTb, [switch]$ShowSearchIconTb, [switch]$ShowSearchLabelTb, [switch]$ShowSearchBoxTb,
-    [switch]$HideTaskview,
-    [switch]$DisableStartRecommended,
-    [switch]$DisableStartAllApps, [switch]$StartAllAppsCategory, [switch]$StartAllAppsGrid, [switch]$StartAllAppsList,
-    [switch]$DisableStartPhoneLink,
-    [switch]$DisableCopilot,
-    [switch]$DisableRecall,
-    [switch]$DisableClickToDo,
-    [switch]$DisableAISvcAutoStart,
-    [switch]$DisablePaintAI,
-    [switch]$DisableNotepadAI,
-    [switch]$DisableEdgeAI,
-    [switch]$DisableWidgets,
-    [switch]$HideChat,
-    [switch]$EnableEndTask,
-    [switch]$EnableLastActiveClick,
-    [switch]$ClearStart,
-    [string]$ReplaceStart,
-    [switch]$ClearStartAllUsers,
-    [string]$ReplaceStartAllUsers,
-    [switch]$RevertContextMenu,
-    [switch]$DisableDragTray,
-    [switch]$DisableMouseAcceleration,
-    [switch]$DisableStickyKeys,
-    [switch]$DisableWindowSnapping,
-    [switch]$DisableSnapAssist,
-    [switch]$DisableSnapLayouts,
-    [switch]$HideTabsInAltTab, [switch]$Show3TabsInAltTab, [switch]$Show5TabsInAltTab, [switch]$Show20TabsInAltTab,
-    [switch]$HideHome,
-    [switch]$HideGallery,
-    [switch]$ExplorerToHome,
-    [switch]$ExplorerToThisPC,
-    [switch]$ExplorerToDownloads,
-    [switch]$ExplorerToOneDrive,
-    [switch]$AddFoldersToThisPC,
-    [switch]$HideOnedrive,
-    [switch]$Hide3dObjects,
-    [switch]$HideMusic,
-    [switch]$HideIncludeInLibrary,
-    [switch]$HideGiveAccessTo,
-    [switch]$HideShare,
-    [switch]$ShowDriveLettersFirst,
-    [switch]$ShowDriveLettersLast,
-    [switch]$ShowNetworkDriveLettersFirst,
-    [switch]$HideDriveLetters
+param(
+    [string]$Preset = 'Defaults',
+    [string]$ConfigPath,
+    [switch]$ListPresets,
+    [switch]$Approve
 )
 
-# Win11Debloat depends on Windows PowerShell 5.1 cmdlets (the Appx module's Get-AppxPackage /
-# Remove-AppxPackage, and Get-ComputerRestorePoint) that do not load in PowerShell 7 (pwsh), where the
-# Appx module fails with "Operation is not supported on this platform" (0x80131539). Without this guard
-# the run continues and silently fails to remove any apps while still reporting success. See issue #675.
-if ($PSVersionTable.PSEdition -eq 'Core') {
-    Write-Host "Win11Debloat requires Windows PowerShell 5.1, but it is running under PowerShell $($PSVersionTable.PSVersion) (pwsh / Core edition)." -ForegroundColor Red
-    Write-Host "App removal and system restore points rely on modules that are not available in PowerShell 7, so the run cannot complete correctly here." -ForegroundColor Red
-    Write-Host "Please re-run this script with Windows PowerShell instead (powershell.exe)." -ForegroundColor Yellow
-    exit 1
+if ([string]::IsNullOrWhiteSpace($ConfigPath)) {
+    $ConfigPath = Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) 'Win11Debloat.json'
 }
 
-# Check if script is running as administrator
-$isAdmin = ([Security.Principal.WindowsPrincipal] `
-    [Security.Principal.WindowsIdentity]::GetCurrent()
-).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+# MARK: Configuration
+# Validate and load only the adjacent JSON configuration file.
+function Get-PresetConfiguration {
+    param([string]$Path)
 
-# If script is not running as administrator ask user if they want to allow it
-if (-not $isAdmin) {
-    Write-Host "Win11Debloat must be run as Administrator." -ForegroundColor Red
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) {
+        throw "Configuration file was not found: $Path"
+    }
 
-    $choice = Read-Host "Restart as Administrator? (y/n)"
+    try {
+        $configuration = Get-Content -LiteralPath $Path -Raw -ErrorAction Stop | ConvertFrom-Json -ErrorAction Stop
+    }
+    catch {
+        throw "Configuration file is not valid JSON: $Path"
+    }
 
-    if ($choice -match '^[Yy]$') {
-        # Win32-safe escaping for arguments to pass to elevated process
-        function Format-ElevatedArg([string]$Value) {
-            $escaped = $Value -replace '(\\*)"', '$1$1\"'
-            $escaped = $escaped -replace '(\\+)$', '$1$1'
-            return '"' + $escaped + '"'
+    if ($configuration.Version -ne '1.0' -or -not $configuration.Presets) {
+        throw 'Configuration must contain Version "1.0" and a Presets array.'
+    }
+
+    return $configuration
+}
+
+function Get-RegistryValueKind {
+    param([string]$Type)
+
+    $supportedTypes = @('String', 'ExpandString', 'DWord', 'QWord', 'MultiString', 'Binary')
+    if ($Type -notin $supportedTypes) {
+        throw "Unsupported registry value type: $Type"
+    }
+
+    return [Microsoft.Win32.RegistryValueKind]::$Type
+}
+
+function Resolve-RegistryPath {
+    param([string]$Path)
+
+    return ($Path -replace '^HKCU:', 'Registry::HKEY_CURRENT_USER' `
+        -replace '^HKLM:', 'Registry::HKEY_LOCAL_MACHINE' `
+        -replace '^HKCR:', 'Registry::HKEY_CLASSES_ROOT' `
+        -replace '^HKU:', 'Registry::HKEY_USERS')
+}
+
+# MARK: Validation
+# Reject malformed paths and values before making any registry change.
+function Test-RegistryOperation {
+    param($Operation)
+
+    if (-not $Operation.Path -or -not $Operation.Action) {
+        throw 'Each operation requires Path and Action.'
+    }
+
+    if ($Operation.Path -notmatch '^(HKCU|HKLM|HKCR|HKU):\\') {
+        throw "Only HKCU, HKLM, HKCR, and HKU registry paths are allowed: $($Operation.Path)"
+    }
+
+    if ($Operation.Action -notin @('SetValue', 'DeleteValue', 'DeleteKey')) {
+        throw "Unsupported registry action: $($Operation.Action)"
+    }
+
+    if ($Operation.Action -eq 'SetValue') {
+        if ($null -eq $Operation.Name -or -not $Operation.Type -or $null -eq $Operation.Value) {
+            throw 'SetValue operations require Name, Type, and Value.'
         }
+        $null = Get-RegistryValueKind -Type $Operation.Type
+    }
+    elseif ($Operation.Action -eq 'DeleteValue' -and $null -eq $Operation.Name) {
+        throw 'DeleteValue operations require Name.'
+    }
+}
 
-        $elevatedArgs = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", (Format-ElevatedArg $PSCommandPath))
+function Convert-RegistryValue {
+    param($Operation)
 
-        foreach ($paramName in $PSBoundParameters.Keys) {
-            $paramValue = $PSBoundParameters[$paramName]
+    switch ($Operation.Type) {
+        'DWord' { return [uint32]$Operation.Value }
+        'QWord' { return [uint64]$Operation.Value }
+        'MultiString' { return [string[]]@($Operation.Value) }
+        'Binary' { return [byte[]]@($Operation.Value) }
+        default { return [string]$Operation.Value }
+    }
+}
 
-            if ($paramValue -is [System.Management.Automation.SwitchParameter]) {
-                if ($paramValue.IsPresent) {
-                    $elevatedArgs += "-$paramName"
-                }
-            }
-            else {
-                $elevatedArgs += "-$paramName"
-                $elevatedArgs += (Format-ElevatedArg $paramValue)
-            }
-        }
+# MARK: State comparison
+# Skip registry operations whose requested state already matches the machine.
+function Test-RegistryValueMatches {
+    param(
+        [Parameter(Mandatory)]$RegistryKey,
+        [Parameter(Mandatory)]$Operation
+    )
 
-        if ($MyInvocation.UnboundArguments.Count -gt 0) {
-            foreach ($unboundArg in $MyInvocation.UnboundArguments) {
-                $elevatedArgs += (Format-ElevatedArg "$unboundArg")
-            }
-        }
+    $valueName = [string]$Operation.Name
+    if ($RegistryKey.GetValueNames() -notcontains $valueName) {
+        return $false
+    }
 
+    $expectedKind = Get-RegistryValueKind -Type $Operation.Type
+    if ($RegistryKey.GetValueKind($valueName) -ne $expectedKind) {
+        return $false
+    }
+
+    $expectedValue = Convert-RegistryValue -Operation $Operation
+    $currentValue = $RegistryKey.GetValue($valueName, $null, [Microsoft.Win32.RegistryValueOptions]::DoNotExpandEnvironmentNames)
+    switch ($Operation.Type) {
+        'DWord' { return [uint32]$currentValue -eq [uint32]$expectedValue }
+        'QWord' { return [uint64]$currentValue -eq [uint64]$expectedValue }
+        'Binary' { return (@([byte[]]$currentValue) -join ',') -ceq (@([byte[]]$expectedValue) -join ',') }
+        'MultiString' { return (@([string[]]$currentValue) -join "`0") -ceq (@([string[]]$expectedValue) -join "`0") }
+        default { return [string]$currentValue -ceq [string]$expectedValue }
+    }
+}
+
+function Test-RegistryOperationPending {
+    param([Parameter(Mandatory)]$Operation)
+
+    $path = Resolve-RegistryPath -Path $Operation.Path
+    if ($Operation.Action -eq 'DeleteKey') {
+        return (Test-Path -LiteralPath $path)
+    }
+
+    if (-not (Test-Path -LiteralPath $path)) {
+        return ($Operation.Action -eq 'SetValue')
+    }
+
+    $registryKey = Get-Item -LiteralPath $path -ErrorAction Stop
+    if ($Operation.Action -eq 'DeleteValue') {
+        return ($registryKey.GetValueNames() -contains [string]$Operation.Name)
+    }
+
+    return -not (Test-RegistryValueMatches -RegistryKey $registryKey -Operation $Operation)
+}
+
+function Get-PendingOperations {
+    param([object[]]$Operations)
+
+    $pendingOperations = [System.Collections.Generic.List[object]]::new()
+    foreach ($operation in $Operations) {
         try {
-            Start-Process powershell -ArgumentList $elevatedArgs -Verb RunAs -ErrorAction Stop
+            if (Test-RegistryOperationPending -Operation $operation) {
+                $pendingOperations.Add($operation)
+            }
         }
         catch {
-            Write-Error "Failed to start Win11Debloat as Administrator: $_"
-            Exit 1
-        }
-
-        Exit 0
-    }
-
-    Exit 1
-}
-
-# Define script-level variables & paths
-$script:Version = "2026.08.24"
-$configPath = Join-Path $PSScriptRoot 'Config'
-$logsPath = Join-Path $PSScriptRoot 'Logs'
-$schemasPath = Join-Path $PSScriptRoot 'Schemas'
-$scriptsPath = Join-Path $PSScriptRoot 'Scripts'
-
-$script:AppsListFilePath = Join-Path $configPath 'Apps.json'
-$script:DefaultSettingsFilePath = Join-Path $configPath 'DefaultSettings.json'
-$script:FeaturesFilePath = Join-Path $configPath 'Features.json'
-$script:SavedSettingsFilePath = Join-Path $configPath 'LastUsedSettings.json'
-$script:LanguagesPath = Join-Path $configPath 'Languages'
-$script:DefaultLanguagePath = Join-Path $script:LanguagesPath 'en-US'
-$script:DefaultLogPath = Join-Path $logsPath 'Win11Debloat.log'
-$script:RegfilesPath = Join-Path $PSScriptRoot 'Regfiles'
-$script:RegistryBackupsPath = Join-Path $PSScriptRoot 'Backups'
-$script:AssetsPath = Join-Path $PSScriptRoot 'Assets'
-$script:AppSelectionSchema = Join-Path $schemasPath 'AppSelectionWindow.xaml'
-$script:MainWindowSchema = Join-Path $schemasPath 'MainWindow.xaml'
-$script:MessageBoxSchema = Join-Path $schemasPath 'MessageBox.xaml'
-$script:AboutWindowSchema = Join-Path $schemasPath 'AboutWindow.xaml'
-$script:ApplyChangesWindowSchema = Join-Path $schemasPath 'ApplyChangesWindow.xaml'
-$script:SharedStylesSchema = Join-Path $schemasPath 'SharedStyles.xaml'
-$script:BubbleHintSchema = Join-Path $schemasPath 'BubbleHint.xaml'
-$script:ImportExportConfigSchema = Join-Path $schemasPath 'ImportExportConfigWindow.xaml'
-$script:RestoreBackupWindowSchema = Join-Path $schemasPath 'RestoreBackupWindow.xaml'
-$script:LoadAppsDetailsScriptPath = Join-Path (Join-Path $scriptsPath 'FileIO') 'Import-AppDetailsFromJson.ps1'
-$script:TestAppInWingetListScriptPath = Join-Path (Join-Path $scriptsPath 'AppRemoval') 'Test-AppInWingetList.ps1'
-
-$script:ControlParams = 'WhatIf', 'Confirm', 'Verbose', 'Debug', 'LogPath', 'Language', 'Silent', 'Sysprep', 'User', 'SkipExplorerRestart', 'SkipRegistryBackup', 'RunDefaults', 'RunDefaultsLite', 'RunSavedSettings', 'Config', 'CLI', 'AppRemovalTarget'
-
-# Script-level variables for GUI elements
-$script:GuiWindow = $null
-$script:CancelRequested = $false
-$script:ApplyProgressCallback = $null
-$script:ApplySubStepCallback = $null
-$script:RegistryImportFailures = 0
-$script:AppRemovalFailures = 0
-$script:AppRemovalVerificationUnavailable = $false
-
-# Check if current PowerShell environment is limited by security policies
-if ($ExecutionContext.SessionState.LanguageMode -ne "FullLanguage") {
-    Write-Error "Win11Debloat is unable to run on your system, PowerShell execution is restricted by security policies"
-    Write-Output "Press any key to exit..."
-    $null = [System.Console]::ReadKey()
-    Exit 1
-}
-
-Clear-Host
-
-# Ensure required Windows command paths are present in PATH for this session.
-$system32Path = "$env:SystemRoot\System32"
-if ($env:PATH -notmatch "(?i)(^|;)$([regex]::Escape($system32Path))(?=;|$)") {
-    $env:PATH = "$env:SystemRoot\System32;$env:SystemRoot;" + $env:PATH
-    Write-Warning "System32 path was missing from PATH environment variable, it has been added for this session."
-}
-
-# Display ASCII art launch logo in CLI
-Write-Host ""
-Write-Host ""
-Write-Host "                   " -NoNewline; Write-Host "      ^" -ForegroundColor Blue
-Write-Host "                   " -NoNewline; Write-Host "     / \" -ForegroundColor Blue
-Write-Host "                   " -NoNewline; Write-Host "    /   \" -ForegroundColor Blue
-Write-Host "                   " -NoNewline; Write-Host "   /     \" -ForegroundColor Blue
-Write-Host "                   " -NoNewline; Write-Host "  / ===== \" -ForegroundColor Blue
-Write-Host "                   " -NoNewline; Write-Host "  |" -ForegroundColor Blue -NoNewline; Write-Host "  ---  " -ForegroundColor White -NoNewline; Write-Host "|" -ForegroundColor Blue
-Write-Host "                   " -NoNewline; Write-Host "  |" -ForegroundColor Blue -NoNewline; Write-Host " ( O ) " -ForegroundColor DarkCyan -NoNewline; Write-Host "|" -ForegroundColor Blue
-Write-Host "                   " -NoNewline; Write-Host "  |" -ForegroundColor Blue -NoNewline; Write-Host "  ---  " -ForegroundColor White -NoNewline; Write-Host "|" -ForegroundColor Blue
-Write-Host "                   " -NoNewline; Write-Host "  |       |" -ForegroundColor Blue
-Write-Host "                   " -NoNewline; Write-Host " /|       |\" -ForegroundColor Blue
-Write-Host "                   " -NoNewline; Write-Host "/ |       | \" -ForegroundColor Blue
-Write-Host "                   " -NoNewline; Write-Host "  |  " -ForegroundColor DarkGray -NoNewline; Write-Host "'''" -ForegroundColor Red -NoNewline; Write-Host "  |" -ForegroundColor DarkGray -NoNewline; Write-Host "    *" -ForegroundColor Yellow
-Write-Host "                   " -NoNewline; Write-Host "    (" -ForegroundColor Yellow -NoNewline; Write-Host "'''" -ForegroundColor Red -NoNewline; Write-Host ") " -ForegroundColor Yellow -NoNewline; Write-Host "   *  *" -ForegroundColor DarkYellow
-Write-Host "                   " -NoNewline; Write-Host "    ( " -ForegroundColor DarkYellow -NoNewline; Write-Host "'" -ForegroundColor Red -NoNewline; Write-Host " )   " -ForegroundColor DarkYellow -NoNewline; Write-Host "*" -ForegroundColor Yellow
-Write-Host ""
-Write-Host "             Win11Debloat is launching..." -ForegroundColor White
-Write-Host "                Keep this window open" -ForegroundColor DarkGray
-Write-Host ""
-Write-Host ""
-
-# Log script output to 'Win11Debloat.log' at the specified path
-if ($LogPath -and (Test-Path $LogPath)) {
-    Start-Transcript -Path (Join-Path $LogPath 'Win11Debloat.log') -Append -IncludeInvocationHeader -Force | Out-Null
-}
-else {
-    Start-Transcript -Path $script:DefaultLogPath -Append -IncludeInvocationHeader -Force | Out-Null
-}
-
-# When Group Policy overrides Run.bat's Process-scope Bypass, marked PowerShell source files
-# can prompt as they are dot-sourced. Outside -WhatIf, remove Mark-of-the-Web only from marked
-# .ps1, .psm1, and .psd1 files under Scripts; leave all other downloaded files untouched.
-# See issue #720.
-if (-not $WhatIfPreference) {
-    $gpoExecutionPolicySet = (Get-ExecutionPolicy -Scope MachinePolicy) -ne 'Undefined' -or
-        (Get-ExecutionPolicy -Scope UserPolicy) -ne 'Undefined'
-
-    if ($gpoExecutionPolicySet) {
-        $markedScriptFiles = @(Get-ChildItem -LiteralPath $scriptsPath -Recurse -File |
-            Where-Object { $_.Extension -in '.ps1', '.psm1', '.psd1' } |
-            Where-Object {
-                Get-Item -LiteralPath $_.FullName -Stream * -ErrorAction SilentlyContinue |
-                    Where-Object { $_.Stream -eq 'Zone.Identifier' }
-            })
-
-        if ($markedScriptFiles.Count -gt 0) {
-            Write-Host "Unblocking $($markedScriptFiles.Count) PowerShell file(s)..."
-            $unblockErrors = @()
-            $markedScriptFiles | Unblock-File -ErrorAction SilentlyContinue -ErrorVariable +unblockErrors
-
-            if ($unblockErrors.Count -gt 0) {
-                Write-Warning "Failed to unblock $($unblockErrors.Count) PowerShell file(s)."
-            }
-            else {
-                Write-Host "All files were unblocked successfully."
-            }
+            # Defer unreadable targets to the existing preflight/failure reporting path.
+            $pendingOperations.Add($operation)
         }
     }
+
+    return @($pendingOperations)
 }
 
-# Check if the device is domain-joined and warn the user (Group Policy may override changes)
-try {
-    $computerSystem = Get-CimInstance Win32_ComputerSystem -ErrorAction SilentlyContinue
-    if ($null -ne $computerSystem -and $computerSystem.PartOfDomain) {
-        Write-Warning "This machine is domain-joined. Group Policy may override changes made by Win11Debloat."
-    }
-}
-catch { }
-
-# Check if script has all required files
-if (-not ((Test-Path $script:DefaultSettingsFilePath) -and (Test-Path $script:AppsListFilePath) -and (Test-Path $script:RegfilesPath) -and (Test-Path $script:AssetsPath) -and (Test-Path $script:AppSelectionSchema) -and (Test-Path $script:ApplyChangesWindowSchema) -and (Test-Path $script:SharedStylesSchema) -and (Test-Path $script:BubbleHintSchema) -and (Test-Path $script:RestoreBackupWindowSchema) -and (Test-Path $script:FeaturesFilePath) -and (Test-Path $script:DefaultLanguagePath))) {
-    Write-Error "Win11Debloat is unable to find required files, please ensure all script files are present"
-    Write-Output "Press any key to exit..."
-    $null = [System.Console]::ReadKey()
-    Exit 1
+# MARK: Interaction
+# Show the pending changes and require confirmation before registry writes.
+function Test-IsAdministrator {
+    $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+    $principal = [Security.Principal.WindowsPrincipal]::new($identity)
+    return $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 }
 
-# Load feature info from file
-$script:Features = @{}
-try {
-    $featuresData = Get-Content -Path $script:FeaturesFilePath -Raw | ConvertFrom-Json
-    foreach ($feature in $featuresData.Features) {
-        if ([string]::IsNullOrWhiteSpace([string]$feature.FeatureId) -or [string]::IsNullOrWhiteSpace([string]$feature.Label) -or [string]::IsNullOrWhiteSpace([string]$feature.ApplyText)) {
-            Write-Warning "Feature '$($feature.FeatureId)' is missing a FeatureId, Label, or ApplyText in Features.json and will be skipped."
-            continue
+function Test-PresetRequiresElevation {
+    param([object[]]$Operations)
+
+    return @($Operations | Where-Object { $_.Path -match '^(HKLM|HKU|HKCR):\\' }).Count -gt 0
+}
+
+function Get-OperationSummary {
+    param($Operation)
+
+    $target = if ($Operation.Action -eq 'DeleteKey') { $Operation.Path } else { "$($Operation.Path)\$($Operation.Name)" }
+    switch ($Operation.Action) {
+        'SetValue' {
+            $value = if ($Operation.Type -eq 'Binary') { "$(@($Operation.Value).Count) bytes" } elseif ($Operation.Type -eq 'MultiString') { "$(@($Operation.Value).Count) values" } else { $Operation.Value }
+            return "Set $($Operation.Type) value '$($Operation.Name)' to '$value' at $target"
         }
-        $script:Features[$feature.FeatureId] = $feature
-    }
-}
-catch {
-    Write-Error "Failed to load feature info from Features.json file"
-    Write-Output "Press any key to exit..."
-    $null = [System.Console]::ReadKey()
-    Exit 1
-}
-
-# Check if WinGet is installed & if it is, check if the version is at least v1.4
-try {
-    if (Get-Command winget -ErrorAction SilentlyContinue) {
-        $script:WingetInstalled = $true
-    }
-    else {
-        $script:WingetInstalled = $false
-    }
-}
-catch {
-    Write-Error "Unable to determine if WinGet is installed, winget command failed: $_"
-    $script:WingetInstalled = $false
-}
-
-# Show WinGet warning that requires user confirmation, Suppress confirmation if Silent parameter was passed
-if (-not $script:WingetInstalled -and -not $Silent) {
-    Write-Warning "WinGet is not installed or outdated, this may prevent Win11Debloat from removing certain apps"
-    Write-Output ""
-    Write-Output "Press any key to continue anyway..."
-    $null = [System.Console]::ReadKey()
-}
-
-
-
-##################################################################################################################
-#                                                                                                                #
-#                                                FUNCTION IMPORTS                                                #
-#                                                                                                                #
-##################################################################################################################
-
-# App removal functions
-. "$PSScriptRoot/Scripts/AppRemoval/Invoke-ForceRemoveEdge.ps1"
-. "$PSScriptRoot/Scripts/AppRemoval/Remove-SelectedApps.ps1"
-. "$PSScriptRoot/Scripts/AppRemoval/Get-WingetInstalledApps.ps1"
-. "$PSScriptRoot/Scripts/AppRemoval/Test-AppInWingetList.ps1"
-
-# CLI functions
-. "$PSScriptRoot/Scripts/CLI/Wait-ForKeyPress.ps1"
-. "$PSScriptRoot/Scripts/CLI/Show-CliLastUsedSettings.ps1"
-. "$PSScriptRoot/Scripts/CLI/Show-CliDefaultModeAppRemovalOptions.ps1"
-. "$PSScriptRoot/Scripts/CLI/Show-CliDefaultModeOptions.ps1"
-. "$PSScriptRoot/Scripts/CLI/Show-CliAppRemoval.ps1"
-. "$PSScriptRoot/Scripts/CLI/Show-CliMenuOptions.ps1"
-. "$PSScriptRoot/Scripts/CLI/Write-PendingChanges.ps1"
-. "$PSScriptRoot/Scripts/CLI/Write-CliHeader.ps1"
-
-# Features functions
-. "$PSScriptRoot/Scripts/Features/Get-CurrentTweakState.ps1"
-. "$PSScriptRoot/Scripts/Features/Invoke-Changes.ps1"
-. "$PSScriptRoot/Scripts/Features/Invoke-SystemRestorePoint.ps1"
-. "$PSScriptRoot/Scripts/Features/Backup-RegistryFeatureSelection.ps1"
-. "$PSScriptRoot/Scripts/Features/Backup-RegistrySnapshotCapture.ps1"
-. "$PSScriptRoot/Scripts/Features/Backup-RegistryState.ps1"
-. "$PSScriptRoot/Scripts/Features/Registry-BackupValidation.ps1"
-. "$PSScriptRoot/Scripts/Features/Restore-RegistryApplyState.ps1"
-. "$PSScriptRoot/Scripts/Features/Restore-RegistryBackup.ps1"
-. "$PSScriptRoot/Scripts/Features/Set-StoreSearchSuggestions.ps1"
-. "$PSScriptRoot/Scripts/Features/Telemetry-ScheduledTasks.ps1"
-. "$PSScriptRoot/Scripts/Features/Windows-OptionalFeatures.ps1"
-. "$PSScriptRoot/Scripts/Features/Import-RegistryFile.ps1"
-. "$PSScriptRoot/Scripts/Features/Replace-StartMenu.ps1"
-. "$PSScriptRoot/Scripts/Features/Invoke-RestartExplorer.ps1"
-
-# File I/O functions
-. "$PSScriptRoot/Scripts/FileIO/Import-JsonFile.ps1"
-. "$PSScriptRoot/Scripts/FileIO/Import-LanguageFile.ps1"
-. "$PSScriptRoot/Scripts/FileIO/Save-ToFile.ps1"
-. "$PSScriptRoot/Scripts/FileIO/Save-Settings.ps1"
-. "$PSScriptRoot/Scripts/FileIO/Import-Settings.ps1"
-. "$PSScriptRoot/Scripts/FileIO/Get-ValidatedAppList.ps1"
-. "$PSScriptRoot/Scripts/FileIO/Import-AppsFromFile.ps1"
-. "$PSScriptRoot/Scripts/FileIO/Import-AppDetailsFromJson.ps1"
-. "$PSScriptRoot/Scripts/FileIO/Import-AppPresetsFromJson.ps1"
-
-# GUI functions
-. "$PSScriptRoot/Scripts/GUI/Get-SystemUsesDarkMode.ps1"
-. "$PSScriptRoot/Scripts/GUI/Set-WindowThemeResources.ps1"
-. "$PSScriptRoot/Scripts/GUI/Attach-ShiftClickBehavior.ps1"
-. "$PSScriptRoot/Scripts/GUI/Apply-SettingsToUiControls.ps1"
-. "$PSScriptRoot/Scripts/GUI/Show-MessageBox.ps1"
-. "$PSScriptRoot/Scripts/GUI/Show-ImportExportConfigWindow.ps1"
-. "$PSScriptRoot/Scripts/GUI/Show-ApplyModal.ps1"
-. "$PSScriptRoot/Scripts/GUI/Show-AppSelectionWindow.ps1"
-. "$PSScriptRoot/Scripts/GUI/Show-RestoreBackupWindow.ps1"
-. "$PSScriptRoot/Scripts/GUI/Restore-BackupDialogFeatureLists.ps1"
-. "$PSScriptRoot/Scripts/GUI/Show-RestoreBackupDialog.ps1"
-. "$PSScriptRoot/Scripts/GUI/MainWindow-WindowChrome.ps1"
-. "$PSScriptRoot/Scripts/GUI/MainWindow-AppSelection.ps1"
-. "$PSScriptRoot/Scripts/GUI/MainWindow-TweaksBuilder.ps1"
-. "$PSScriptRoot/Scripts/GUI/MainWindow-Navigation.ps1"
-. "$PSScriptRoot/Scripts/GUI/MainWindow-Deployment.ps1"
-. "$PSScriptRoot/Scripts/GUI/Show-MainWindow.ps1"
-. "$PSScriptRoot/Scripts/GUI/Show-AboutDialog.ps1"
-. "$PSScriptRoot/Scripts/GUI/Show-Bubble.ps1"
-
-# Helper functions
-. "$PSScriptRoot/Scripts/Helpers/Add-Parameter.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Resolve-UserProfilePath.ps1"
-. "$PSScriptRoot/Scripts/Helpers/User-HiveHelpers.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Test-UserProfileExists.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Test-ModernStandbySupport.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Generate-AppsList.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Get-FriendlyRegistryBackupTarget.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Get-FriendlyTargetUserName.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Get-RebootFeatureLabels.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Import-ConfigToParams.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Test-ConfigConsistency.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Get-TargetUserForAppRemoval.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Get-RegFileOperations.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Test-TargetUserName.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Get-UserDirectory.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Get-UserName.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Registry-PathHelpers.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Apply-RegistryRegFile.ps1"
-. "$PSScriptRoot/Scripts/Helpers/Confirm-UnsafeAppRemoval.ps1"
-
-# Threading functions
-. "$PSScriptRoot/Scripts/Threading/Invoke-DoEvents.ps1"
-. "$PSScriptRoot/Scripts/Threading/Invoke-NonBlocking.ps1"
-
-
-
-##################################################################################################################
-#                                                                                                                #
-#                                                  SCRIPT START                                                  #
-#                                                                                                                #
-##################################################################################################################
-
-
-
-# Get current Windows build version
-$WinVersion = Get-ItemPropertyValue 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' CurrentBuild
-
-# Check if the machine supports Modern Standby, this is used to determine if the DisableModernStandbyNetworking option can be used
-$script:ModernStandbySupported = Test-ModernStandbySupport
-
-# Load the GUI's language content. -Language overrides the current user's system UI culture,
-# falling back to en-US either way if the requested language isn't available.
-$script:Lang = if ($Language) { Import-LanguageFile -LanguageCode $Language } else { Import-LanguageFile }
-
-$script:Params = $PSBoundParameters
-$script:UndoParams = @{}
-
-# Add default Apps parameter when RemoveApps is requested and Apps was not explicitly provided
-if ((-not $script:Params.ContainsKey("Apps")) -and $script:Params.ContainsKey("RemoveApps")) {
-    $script:Params.Add('Apps', 'Default')
-}
-
-$controlParamsCount = 0
-
-# Count how many control parameters are set, to determine if any changes were selected by the user during runtime
-foreach ($Param in $script:ControlParams) {
-    if ($script:Params.ContainsKey($Param)) {
-        $controlParamsCount++
+        'DeleteValue' { return "Remove registry value '$($Operation.Name)' at $target" }
+        'DeleteKey' { return "Remove registry key $target" }
     }
 }
 
-# Hide progress bars for app removal, as they block Win11Debloat's output
-if (-not ($script:Params.ContainsKey("Verbose"))) {
-    $ProgressPreference = 'SilentlyContinue'
-}
-else {
-    Write-Host "Verbose mode is enabled"
-    Write-Output ""
-    Write-Output "Press any key to continue..."
-    $null = [System.Console]::ReadKey()
+function Show-StartupInfo {
+    param(
+        [string]$PresetName,
+        [bool]$RequiresElevation
+    )
 
-    $ProgressPreference = 'Continue'
-}
-
-if ($script:Params.ContainsKey("Sysprep")) {
-    Get-UserDirectory -userName "Default" | Out-Null
-
-    # Exit script if run in Sysprep mode on Windows 10
-    if ($WinVersion -lt 22000) {
-        Write-Error "Win11Debloat Sysprep mode is not supported on Windows 10"
-        Wait-ForKeyPress -ExitCode 1
+    Write-Host ''
+    Write-Host 'Win11Debloat registry preset runner' -ForegroundColor Cyan
+    Write-Host "Selected preset: $PresetName"
+    if (Test-IsAdministrator) {
+        Write-Host 'Elevation: Administrator' -ForegroundColor Green
     }
-}
-
-# Ensure that target user exists, if User or AppRemovalTarget parameter was provided
-if ($script:Params.ContainsKey("User")) {
-    Get-UserDirectory -userName $script:Params.Item("User") | Out-Null
-}
-if ($script:Params.ContainsKey("AppRemovalTarget")) {
-    $appRemovalTargetValue = $script:Params.Item("AppRemovalTarget")
-    # 'AllUsers' / 'CurrentUser' are sentinel scope values, not real usernames - don't resolve them as a profile
-    if ($appRemovalTargetValue -notin @('AllUsers', 'CurrentUser')) {
-        Get-UserDirectory -userName $appRemovalTargetValue | Out-Null
-    }
-}
-
-# Remove LastUsedSettings.json file if it exists and is empty
-if ((Test-Path $script:SavedSettingsFilePath) -and ([String]::IsNullOrWhiteSpace((Get-content $script:SavedSettingsFilePath)))) {
-    Remove-Item -Path $script:SavedSettingsFilePath -Force
-}
-
-# Default to CLI mode for deployment-targeted parameters.
-$launchInCLI = $CLI -or $script:Params.ContainsKey("User") -or $script:Params.ContainsKey("Sysprep") -or $script:Params.ContainsKey("AppRemovalTarget")
-
-# Change script execution based on provided parameters or user input
-if ((-not $script:Params.Count) -or $RunDefaults -or $RunDefaultsLite -or $RunSavedSettings -or $Config -or ($controlParamsCount -eq $script:Params.Count)) {
-    if ($RunDefaults -or $RunDefaultsLite) {
-        Show-CliDefaultModeOptions
-    }
-    elseif ($RunSavedSettings) {
-        if (-not (Test-Path $script:SavedSettingsFilePath)) {
-            Write-CliHeader 'Custom Mode'
-            Write-Error "Unable to find LastUsedSettings.json file, no changes were made"
-            Wait-ForKeyPress -ExitCode 1
-        }
-
-        Show-CliLastUsedSettings
-    }
-    elseif ($Config) {
-        try {
-            Import-ConfigToParams -ConfigPath $Config -CurrentBuild $WinVersion -ExpectedVersion '1.0'
-        }
-        catch {
-            Write-Error "$_"
-            Wait-ForKeyPress -ExitCode 1
-        }
-
-        if (-not $Silent) {
-            Write-CliHeader 'Custom Mode'
-            Write-PendingChanges
-            Write-CliHeader 'Custom Mode'
+    elseif ($RequiresElevation) {
+        Write-Warning "Preset '$PresetName' changes machine or service registry settings and requires Administrator rights."
+        if (-not $WhatIfPreference) {
+            throw 'Restart PowerShell as Administrator and try again.'
         }
     }
     else {
-        if ($launchInCLI) {
-            $Mode = Show-CliMenuOptions
+        Write-Host 'Elevation: Standard user (current-user registry changes only)' -ForegroundColor Yellow
+    }
+}
+
+function Show-PresetPlan {
+    param(
+        $SelectedPreset,
+        [object[]]$Operations,
+        [object[]]$PendingOperations
+    )
+
+    Write-Host ''
+    Write-Host $SelectedPreset.Description -ForegroundColor White
+    $groups = $Operations | Group-Object {
+        if ($_.Description) { $_.Description } else { $SelectedPreset.Description }
+    }
+    $alreadyMatchedCount = $Operations.Count - $PendingOperations.Count
+    Write-Host "Intent: $($Operations.Count) operations across $($groups.Count) change categories." -ForegroundColor Cyan
+    Write-Host "Current baseline: $alreadyMatchedCount already match; $($PendingOperations.Count) pending." -ForegroundColor Cyan
+    $groups = $Operations | Group-Object {
+        if ($_.Description) { $_.Description } else { $SelectedPreset.Description }
+    }
+    foreach ($group in $groups) {
+        $pendingInGroup = @($PendingOperations | Where-Object {
+            $description = if ($_.Description) { $_.Description } else { $SelectedPreset.Description }
+            $description -eq $group.Name
+        })
+        $matchedInGroup = $group.Count - $pendingInGroup.Count
+        Write-Host "- $($group.Name): intended $($group.Count); matched $matchedInGroup; pending $($pendingInGroup.Count)"
+        if ($pendingInGroup.Count -eq 1) {
+            Write-Host "  $(Get-OperationSummary -Operation $pendingInGroup[0])" -ForegroundColor DarkGray
         }
-        else {
+    }
+}
+
+function Confirm-PresetApplication {
+    param([switch]$Bypass)
+
+    if ($WhatIfPreference -or $Bypass) {
+        return $true
+    }
+
+    return (Read-Host 'Apply these changes? [y/N]') -match '^[Yy]$'
+}
+
+function Wait-ForInteractiveExit {
+    if (-not $Approve -and -not $WhatIfPreference) {
+        $null = Read-Host 'Press Enter to exit'
+    }
+}
+
+function Test-RegistryPathWritable {
+    param([string]$Path)
+
+    $probePath = $Path
+    while (-not (Test-Path -LiteralPath $probePath)) {
+        $separatorIndex = $probePath.LastIndexOf('\')
+        if ($separatorIndex -lt 0) {
+            throw "Cannot determine an existing writable parent for registry path '$Path'."
+        }
+        $probePath = $probePath.Substring(0, $separatorIndex)
+    }
+
+    try {
+        $key = Get-Item -LiteralPath $probePath -ErrorAction Stop
+        $writableKey = $key.OpenSubKey('', $true)
+        if (-not $writableKey) {
+            throw "The registry key '$probePath' cannot be opened for writing."
+        }
+        $writableKey.Close()
+    }
+    catch {
+        throw "Write access check failed for '$Path': $($_.Exception.Message)"
+    }
+}
+
+function Test-PresetWriteAccess {
+    param([object[]]$Operations)
+
+    if ($WhatIfPreference) {
+        return @()
+    }
+
+    $testedPaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    $failures = [System.Collections.Generic.List[object]]::new()
+    foreach ($operation in $Operations) {
+        $path = Resolve-RegistryPath -Path $operation.Path
+        if ($testedPaths.Add($path)) {
             try {
-                $result = Show-MainWindow
-            
-                try {
-                    Stop-Transcript
-                }
-                catch { }
-
-                Exit
+                Test-RegistryPathWritable -Path $path
             }
             catch {
-                Write-Warning "The graphical interface could not start: $($_.Exception.Message)"
-                Write-Verbose "GUI Failure details: $($_.Exception.ToString())"
-                if (-not $Silent) {
-                    Write-Host ""
-                    Write-Host "Press any key to continue in CLI mode..."
-                    $null = [System.Console]::ReadKey()
-                }
-
-                $Mode = Show-CliMenuOptions
+                $failures.Add([PSCustomObject]@{
+                    Path = $path
+                    Error = $_.Exception.Message
+                })
             }
         }
     }
 
-    # Add execution parameters based on the mode
-    switch ($Mode) {
-        # Default mode, loads defaults and app removal options
-        '1' { 
-            Show-CliDefaultModeOptions
-        }
+    return @($failures)
+}
 
-        # App removal, remove apps based on user selection
-        '2' {
-            Show-CliAppRemoval
-        }
+# MARK: Apply
+# Apply one named preset after all of its operations pass validation.
+function Invoke-Preset {
+    param(
+        [Parameter(Mandatory)]$SelectedPreset,
+        [object[]]$PreflightFailures = @()
+    )
 
-        # Load last used options from the "LastUsedSettings.json" file
-        '3' {
-            Show-CliLastUsedSettings
-        }
+    $operations = @($SelectedPreset.Operations)
+    if ($operations.Count -eq 0) {
+        throw "Preset '$($SelectedPreset.Name)' has no operations."
     }
+
+    foreach ($operation in $operations) {
+        Test-RegistryOperation -Operation $operation
+    }
+
+    if ((Test-PresetRequiresElevation -Operations $operations) -and -not (Test-IsAdministrator) -and -not $WhatIfPreference) {
+        throw "Preset '$($SelectedPreset.Name)' requires Administrator rights because it changes HKLM, HKU, or HKCR. No changes were applied."
+    }
+
+    $preflightFailureLookup = @{}
+    foreach ($failure in $PreflightFailures) {
+        $preflightFailureLookup[$failure.Path] = $failure.Error
+    }
+    $failures = [System.Collections.Generic.List[object]]::new()
+
+    foreach ($operation in $operations) {
+        $path = Resolve-RegistryPath -Path $operation.Path
+        $target = if ($operation.Action -eq 'DeleteKey') { $operation.Path } else { "$($operation.Path)\$($operation.Name)" }
+
+        if ($preflightFailureLookup.ContainsKey($path)) {
+            $failures.Add([PSCustomObject]@{ Action = $operation.Action; Target = $target; Error = $preflightFailureLookup[$path] })
+            continue
+        }
+
+        if (-not $PSCmdlet.ShouldProcess($target, $operation.Action)) {
+            continue
+        }
+
+        try {
+            switch ($operation.Action) {
+                'SetValue' {
+                    $value = Convert-RegistryValue -Operation $operation
+                    $kind = Get-RegistryValueKind -Type $operation.Type
+                    if (-not (Test-Path -LiteralPath $path)) {
+                        New-Item -Path $path -Force -ErrorAction Stop | Out-Null
+                    }
+                    New-ItemProperty -Path $path -Name $operation.Name -Value $value -PropertyType $kind -Force -ErrorAction Stop | Out-Null
+                }
+                'DeleteValue' {
+                    if (Test-Path -LiteralPath $path) {
+                        $registryKey = Get-Item -LiteralPath $path -ErrorAction Stop
+                        if ($registryKey.GetValueNames() -contains $operation.Name) {
+                            Remove-ItemProperty -LiteralPath $path -Name $operation.Name -ErrorAction Stop
+                        }
+                    }
+                }
+                'DeleteKey' {
+                    if (Test-Path -LiteralPath $path) {
+                        Remove-Item -LiteralPath $path -Recurse -Force -ErrorAction Stop
+                    }
+                }
+            }
+        }
+        catch {
+            $failures.Add([PSCustomObject]@{ Action = $operation.Action; Target = $target; Error = $_.Exception.Message })
+            continue
+        }
+
+        Write-Host "$($operation.Action): $target"
+    }
+
+    return @($failures)
 }
-else {
-    Write-CliHeader 'Configuration'
+
+# MARK: Entry point
+# Locate the requested preset and run it only when explicitly selected.
+try {
+    $configuration = Get-PresetConfiguration -Path $ConfigPath
+    $presets = @($configuration.Presets)
+
+    if ($ListPresets) {
+        $presets | ForEach-Object { "{0}: {1}" -f $_.Name, $_.Description }
+        return
+    }
+
+    $selectedPreset = @($presets | Where-Object { $_.Name -ieq $Preset })
+    if ($selectedPreset.Count -ne 1) {
+        $availablePresets = ($presets.Name | Sort-Object) -join ', '
+        throw "Preset '$Preset' was not found. Available presets: $availablePresets"
+    }
+
+    $operations = @($selectedPreset[0].Operations)
+    if ($operations.Count -eq 0) {
+        throw "Preset '$Preset' has no operations."
+    }
+    foreach ($operation in $operations) {
+        Test-RegistryOperation -Operation $operation
+    }
+
+    $pendingOperations = @(Get-PendingOperations -Operations $operations)
+    if (-not $Approve -and -not $WhatIfPreference) {
+        Clear-Host
+    }
+
+    Show-StartupInfo -PresetName $selectedPreset[0].Name -RequiresElevation:(Test-PresetRequiresElevation -Operations $pendingOperations)
+    Show-PresetPlan -SelectedPreset $selectedPreset[0] -Operations $operations -PendingOperations $pendingOperations
+    if ($pendingOperations.Count -eq 0) {
+        Write-Host 'Current registry state already matches the selected preset. No changes were applied.' -ForegroundColor Green
+        Wait-ForInteractiveExit
+        return
+    }
+
+    $preflightFailures = @(Test-PresetWriteAccess -Operations $pendingOperations)
+    if ($preflightFailures.Count -gt 0) {
+        Write-Warning "$($preflightFailures.Count) registry target(s) cannot be written and will be skipped."
+    }
+    if (-not (Confirm-PresetApplication -Bypass:$Approve)) {
+        Write-Host 'No changes were applied.' -ForegroundColor Yellow
+        Wait-ForInteractiveExit
+        return
+    }
+
+    $pendingPreset = [PSCustomObject]@{ Name = $selectedPreset[0].Name; Operations = $pendingOperations }
+    $failures = @(Invoke-Preset -SelectedPreset $pendingPreset -PreflightFailures $preflightFailures)
+    if ($failures.Count -gt 0) {
+        Write-Host ''
+        Write-Host "Completed: $($pendingOperations.Count - $failures.Count) applied; $($operations.Count - $pendingOperations.Count) already matched; $($failures.Count) issue(s)." -ForegroundColor Yellow
+        foreach ($failure in $failures) {
+            Write-Host "- $($failure.Action): $($failure.Target)" -ForegroundColor Yellow
+            Write-Host "  $($failure.Error)" -ForegroundColor DarkYellow
+        }
+        Wait-ForInteractiveExit
+        exit 1
+    }
+
+    Write-Host ''
+    Write-Host "Completed: $($pendingOperations.Count) applied; $($operations.Count - $pendingOperations.Count) already matched." -ForegroundColor Green
+    Wait-ForInteractiveExit
 }
-
-# If the number of keys in ControlParams equals the number of keys in Params then no modifications/changes were selected
-#  or added by the user, and the script can exit without making any changes.
-if (($controlParamsCount -eq $script:Params.Keys.Count) -or ($script:Params.Keys.Count -eq 1 -and ($script:Params.Keys -contains 'CreateRestorePoint' -or $script:Params.Keys -contains 'Apps'))) {
-    Write-Output "The script completed without making any changes."
-    Wait-ForKeyPress
+catch {
+    Write-Error $_.Exception.Message
+    Wait-ForInteractiveExit
+    exit 1
 }
-
-# Execute all selected/provided parameters using the consolidated function
-# (This also handles restore point creation if requested)
-Invoke-AllChanges
-
-if ($script:CancelRequested) {
-    Write-Warning "Script execution was cancelled by the user. Any remaining changes were not applied."
-    Wait-ForKeyPress
-}
-
-# Restart Explorer process unless running in Sysprep or User context
-if (-not ($script:Params.ContainsKey("Sysprep") -or $script:Params.ContainsKey("User"))) {
-    Invoke-RestartExplorer
-}
-
-Write-Output ""
-Write-Output ""
-Write-Output ""
-Write-Output "Script completed! Please check above for any errors."
-
-Wait-ForKeyPress
