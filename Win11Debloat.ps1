@@ -176,6 +176,29 @@ function Test-PresetRequiresElevation {
     return @($Operations | Where-Object { $_.Path -match '^(HKLM|HKU|HKCR):\\' }).Count -gt 0
 }
 
+function Restart-ElevatedPreset {
+    param(
+        [Parameter(Mandatory)][string]$PresetName,
+        [Parameter(Mandatory)][string]$ConfigurationPath
+    )
+
+    $argumentList = @(
+        '-NoProfile',
+        '-File', ('"{0}"' -f $PSCommandPath),
+        '-Preset', ('"{0}"' -f $PresetName),
+        '-ConfigPath', ('"{0}"' -f $ConfigurationPath),
+        '-Approve'
+    )
+
+    try {
+        $process = Start-Process -FilePath 'powershell.exe' -Verb RunAs -ArgumentList $argumentList -Wait -PassThru -ErrorAction Stop
+        exit $process.ExitCode
+    }
+    catch {
+        throw "Administrator elevation was cancelled or failed: $($_.Exception.Message)"
+    }
+}
+
 function Get-OperationSummary {
     param($Operation)
 
@@ -203,10 +226,7 @@ function Show-StartupInfo {
         Write-Host 'Elevation: Administrator' -ForegroundColor Green
     }
     elseif ($RequiresElevation) {
-        Write-Warning "Preset '$PresetName' changes machine or service registry settings and requires Administrator rights."
-        if (-not $WhatIfPreference) {
-            throw 'Restart PowerShell as Administrator and try again.'
-        }
+        Write-Warning "Preset '$PresetName' changes machine or service registry settings. Administrator rights will be requested after approval."
     }
     else {
         Write-Host 'Elevation: Standard user (current-user registry changes only)' -ForegroundColor Yellow
@@ -426,14 +446,19 @@ try {
         return
     }
 
-    $preflightFailures = @(Test-PresetWriteAccess -Operations $pendingOperations)
-    if ($preflightFailures.Count -gt 0) {
-        Write-Warning "$($preflightFailures.Count) registry target(s) cannot be written and will be skipped."
-    }
     if (-not (Confirm-PresetApplication -Bypass:$Approve)) {
         Write-Host 'No changes were applied.' -ForegroundColor Yellow
         Wait-ForInteractiveExit
         return
+    }
+
+    if ((Test-PresetRequiresElevation -Operations $pendingOperations) -and -not (Test-IsAdministrator)) {
+        Restart-ElevatedPreset -PresetName $selectedPreset[0].Name -ConfigurationPath $ConfigPath
+    }
+
+    $preflightFailures = @(Test-PresetWriteAccess -Operations $pendingOperations)
+    if ($preflightFailures.Count -gt 0) {
+        Write-Warning "$($preflightFailures.Count) registry target(s) cannot be written and will be skipped."
     }
 
     $pendingPreset = [PSCustomObject]@{ Name = $selectedPreset[0].Name; Operations = $pendingOperations }

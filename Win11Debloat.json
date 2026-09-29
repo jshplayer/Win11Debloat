@@ -3,7 +3,7 @@
   "Presets": [
     {
       "Name": "Defaults",
-      "Description": "Original default registry-backed tweaks, excluding Microsoft Copilot.",
+      "Description": "Original default registry-backed tweaks, retaining the Microsoft Copilot app.",
       "Operations": [
         {
           "Action": "SetValue",
